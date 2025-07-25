@@ -37,26 +37,15 @@ plt.ylabel("Total Amount")
 plt.title("Kategori bazında ortalama satış grafiği")
 plt.show()
 
-#Gender'a göre grafik çıkar. ama yaşı 30 dan büyük olan toplam kişi sayılarını gösterir
-#countplot methodu
-
-#'Age' > 30 koşulu True/False döndürür, sum() bunları 1/0 olarak toplar
-
-# ters düşün önce yaşı filtrelemem lazım sonra gender'ı
-#dataframe'den okuyorum [] unutma!!
-
-##people_over_30= data["Age"].apply(lambda x : (x>30)).sum()
-#gender_over_30= people_over_30.groupby(["Gender",["Age"]]).size().reset_index()
-#groupby people_over yapamadım çünkü object yani sayı!! df ya da seri değil bu yüzden
-
-##plt.figure(figsize=(10,10))
-##sns.scatterplot(x="Gender", y="Age", hue= "Count" , data=gender_over_30)
-
 
 ##yardım iste!!
-
-age_filter= data.groupby(["Gender"])[["Age"]].apply(lambda x : x["Age"]>30).reset_index()
+#30 yaşından küçük kişi sayısının cinsiyete göre dağılımını gösteren grafik
+age_filter= data.groupby(["Gender"])[["Age"]].apply(lambda x : (x<30).sum()).reset_index()
 plt.figure(figsize=(10,10))
 sns.barplot(x="Gender", y="Age", data=age_filter)
 plt.xlabel("Gender")
+plt.ylabel("miktar")
+plt.title("30 yaşından küçük kişi sayısının cinsiyete göre dağılımı")
 plt.show()
+
+
